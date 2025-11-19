@@ -10,7 +10,6 @@ const router = async (
   const method = event.requestContext.http.method;
   const path = event.rawPath;
   if (method === "GET" && path === "/product") {
-    
     try {
       const result =productController();
       return successResponse(200, result);

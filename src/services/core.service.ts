@@ -4,6 +4,7 @@ import coreRepo from "../repositories/core.repo.js";
 class coreService {
 
   async listProduct() {
+    console.log("Product.controller.listProduct")
     const listProduct = await coreRepo.getListProduct();
 
     if (!listProduct) {

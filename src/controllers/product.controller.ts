@@ -3,6 +3,7 @@ import coreService from "../services/core.service.js";
 
 export const productController = async () => {
   try {
+    console.log("ProductController")
     const result = await coreService.listProduct();
 
     return successResponse(200, result);

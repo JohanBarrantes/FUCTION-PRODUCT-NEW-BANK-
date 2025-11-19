@@ -1,8 +1,5 @@
 
 import coreRepo from "../repositories/core.repo.js";
-import { LoginPayload, RegisterPayload } from "../types/core.types.js";
-import { signJWT } from "../utils/jwt.js";
-import bcrypt from "bcryptjs";
 
 class coreService {
 

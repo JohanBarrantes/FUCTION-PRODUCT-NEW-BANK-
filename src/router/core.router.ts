@@ -9,7 +9,6 @@ const router = async (
 
   const method = event.requestContext.http.method;
   const path = event.rawPath;
-if (!event.body) return errorResponse(400, "Missing body")
   if (method === "GET" && path === "/product") {
     
     try {

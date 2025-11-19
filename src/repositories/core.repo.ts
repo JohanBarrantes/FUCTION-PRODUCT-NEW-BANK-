@@ -58,10 +58,11 @@ async createProduct(product: Product) {
     }
   }
 async getProductsByUser(userId: string): Promise<Product[]> {
+  console.log(userId)
     const result = await doc.send(
       new QueryCommand({
         TableName: TABLE,
-        KeyConditionExpression: "userId = :uid",
+        KeyConditionExpression: "customerId = :uid",
         ExpressionAttributeValues: { ":uid": userId },
       })
     );

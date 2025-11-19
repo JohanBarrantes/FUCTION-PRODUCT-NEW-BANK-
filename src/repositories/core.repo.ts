@@ -10,7 +10,7 @@ import crypto from "crypto";
 const client = new DynamoDBClient({});
 const doc = DynamoDBDocumentClient.from(client);
 
-const TABLE = process.env.core_TABLE || "newbank-cores-dev";
+const TABLE = process.env.core_TABLE || "list-product";
 
 class coreRepository {
 async getListProduct() {

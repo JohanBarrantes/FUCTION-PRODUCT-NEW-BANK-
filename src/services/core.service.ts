@@ -1,4 +1,5 @@
 import coreRepo from "../repositories/core.repo.js";
+import { Product } from "../types/core.types.js";
 
 
 class coreService {
@@ -11,6 +12,17 @@ class coreService {
     }
 
     return { data:{listProduct }};
+  }
+
+    async createProduct(body:Product) {
+    console.log("Product.controller.createProduct")
+    const listProduct = await coreRepo.createProduct(body);
+
+    return { data:{listProduct }};
+  }
+    async listProductsByUser(userId: string) {
+    console.log("Product.controller.listProduct")
+    return await coreRepo.getProductsByUser(userId);
   }
 }
 

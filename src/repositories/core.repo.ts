@@ -7,10 +7,12 @@ import {
   ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
 import crypto from "crypto";
+import { Product } from "../types/core.types";
 const client = new DynamoDBClient({});
 const doc = DynamoDBDocumentClient.from(client);
 
 const TABLE = "list-product";
+const PRODUCTCLIENT = "product-client";
 
 class coreRepository {
 async getListProduct() {
@@ -32,33 +34,40 @@ async getListProduct() {
     return result.Items;
 
   } catch (error: any) {
-    console.error("❌ Error en getListProduct()", error);
+    console.error("Error en getListProduct()", error);
 
     if (error.name === "ResourceNotFoundException") {
-      console.error("❌ La tabla no existe o está mal nombrada:", TABLE);
+      console.error("La tabla no existe o está mal nombrada:", TABLE);
     }
 
     return []; 
   }
 }
 
-async create(user: { email: string; password: string }) {
-  const newUser = {
-    coreId: crypto.randomUUID(),   // PK REAL
-    email: user.email,
-    password: user.password,
-    createdAt: new Date().toISOString(),
-  };
+async createProduct(product: Product) {
+    try {
+      await doc.send(
+        new PutCommand({
+          TableName: PRODUCTCLIENT,
+          Item: product,
+        })
+      );
+    } catch (err) {
+      console.error("Error guardando producto en Dynamo:", err);
+      throw err;
+    }
+  }
+async getProductsByUser(userId: string): Promise<Product[]> {
+    const result = await doc.send(
+      new QueryCommand({
+        TableName: TABLE,
+        KeyConditionExpression: "userId = :uid",
+        ExpressionAttributeValues: { ":uid": userId },
+      })
+    );
 
-  await doc.send(
-    new PutCommand({
-      TableName: TABLE,
-      Item: newUser,
-    })
-  );
-
-  return newUser;
-}
+    return result.Items as Product[];
+  }
 
 }
 

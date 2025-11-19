@@ -1,11 +1,16 @@
-export interface LoginPayload {
-  email: string;
-  password: string;
+export interface Product {
+  id: string; 
+  customerId:string;
+  type: string;
+  amount: number;
+  createdAt: string;
+  transactions: Transaction[];
 }
 
-export interface RegisterPayload {
-  email: string;
-  password: string;
-  phone:string;
-  name:string
+export interface Transaction {
+  id: string;
+  type: 'income' | 'expense';
+  amount: number;
+  date: string;
+  description?: string;
 }

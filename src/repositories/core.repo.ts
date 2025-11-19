@@ -10,18 +10,37 @@ import crypto from "crypto";
 const client = new DynamoDBClient({});
 const doc = DynamoDBDocumentClient.from(client);
 
-const TABLE = process.env.core_TABLE || "list-product";
+const TABLE = "list-product";
 
 class coreRepository {
 async getListProduct() {
-  const cmd = new ScanCommand({
-    TableName: TABLE,
-  });
+  try {
+    const cmd = new ScanCommand({
+      TableName: TABLE,
+    });
 
-  const result = await doc.send(cmd);
-  return result.Items;
+    const result = await doc.send(cmd);
 
+    console.log("Core.repo result:", result);
+
+    if (!result.Items || result.Items.length === 0) {
+      console.warn("⚠️ No hay productos en DynamoDB");
+      return [];
+    }
+
+    return result.Items;
+
+  } catch (error: any) {
+    console.error("❌ Error en getListProduct()", error);
+
+    if (error.name === "ResourceNotFoundException") {
+      console.error("❌ La tabla no existe o está mal nombrada:", TABLE);
+    }
+
+    return []; 
+  }
 }
+
 async create(user: { email: string; password: string }) {
   const newUser = {
     coreId: crypto.randomUUID(),   // PK REAL

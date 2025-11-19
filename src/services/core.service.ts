@@ -7,7 +7,7 @@ class coreService {
     const listProduct = await coreRepo.getListProduct();
 
     if (!listProduct) {
-      throw { statusCode: 404, message: "User not found" };
+      throw { statusCode: 404, message: "list product not found" };
     }
 
     return { data:{listProduct }};

@@ -14,11 +14,12 @@ const TABLE = "list-product";
 
 class coreRepository {
 async getListProduct() {
+      console.log("PPor aqui")
+
   try {
     const cmd = new ScanCommand({
       TableName: TABLE,
     });
-
     const result = await doc.send(cmd);
 
     console.log("Core.repo result:", result);

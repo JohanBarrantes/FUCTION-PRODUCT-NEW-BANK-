@@ -11,7 +11,7 @@ const router = async (
   const path = event.rawPath;
   if (method === "GET" && path === "/product") {
     try {
-      const result =productController();
+      const result = await productController();
       return successResponse(200, result);
     } catch (e) {
       console.error("JSON parse error:", e);

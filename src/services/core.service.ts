@@ -1,4 +1,4 @@
-import coreRepo from "../repositories/core.repo";
+import coreRepo from "../repositories/core.repo.js";
 
 
 class coreService {

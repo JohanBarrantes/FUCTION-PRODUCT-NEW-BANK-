@@ -6,7 +6,7 @@ export const productController = async () => {
     console.log("ProductController")
     const result = await coreService.listProduct();
 
-    return successResponse(200, result);
+    return result;
   } catch (error: any) {
     console.error("Login error:", error);
     return errorResponse(error.statusCode || 400, error.message || "Bad Request");

@@ -32,7 +32,7 @@ try {
     if (!event.body) return errorResponse(400, "Missing body")
 try {
   const body= JSON.parse(event.body)
-      const result = await getProductController(body.userId);
+      const result = await getProductController(body.customerId);
       return successResponse(200, result);
     } catch (e) {
       console.error("JSON parse error:", e);
